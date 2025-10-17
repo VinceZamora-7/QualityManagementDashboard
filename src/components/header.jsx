@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import LoginButton from "./login";
 
 const serviceLines = [
   {
@@ -67,9 +68,9 @@ const Header = () => {
             <span className="font-mono text-gray-700">{currentTime}</span>
           </div>
 
-          <button className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-            LOGIN
-          </button>
+          <div className="flex justify-end items-center">
+            <LoginButton />
+          </div>
         </div>
       </div>
 
