@@ -5,16 +5,16 @@ const serviceLines = [
   {
     name: "Overview",
     icon: "📊",
-    link: "/dashboard/overview",
+    link: "/overview",
     isPrimary: true,
   },
-  { name: "Events", icon: "🗓️", link: "/dashboard/events", isPrimary: true },
-  { name: "Email", icon: "✉️", link: "/dashboard/email" },
-  { name: "BAP", icon: "📄", link: "/dashboard/bap" },
-  { name: "Data", icon: "💾", link: "/dashboard/data" },
-  { name: "Social Triage", icon: "💬", link: "/dashboard/social" },
-  { name: "SDP", icon: "📝", link: "/dashboard/sdp" },
-  { name: "BAP - SDP", icon: "🔗", link: "/dashboard/bap-sdp" },
+  { name: "Events", icon: "🗓️", link: "/events", isPrimary: true },
+  { name: "Email", icon: "✉️", link: "/email" },
+  { name: "BAP", icon: "📄", link: "/bap" },
+  { name: "Data", icon: "💾", link: "/data" },
+  { name: "Social Triage", icon: "💬", link: "/social" },
+  { name: "SDP", icon: "📝", link: "/sdp" },
+  { name: "BAP - SDP", icon: "🔗", link: "/bap-sdp" },
 ];
 
 const formatTime = () => {
@@ -82,13 +82,13 @@ const Header = () => {
                 key={item.name}
                 to={item.link}
                 className={`flex flex-col items-center justify-center flex-shrink-0
-                  w-24 h-24 p-2 text-center text-sm font-medium rounded-xl transition-all duration-200 shadow-lg cursor-pointer
-                  ${
-                    isActive(item.link)
-                      ? "bg-blue-600 text-white hover:bg-blue-700"
-                      : "bg-white text-gray-800 hover:bg-gray-50 border border-gray-200"
-                  }
-                `}
+  w-24 h-24 p-2 text-center text-sm font-medium rounded-xl transition-all duration-200 shadow-lg cursor-pointer
+  ${
+    isActive(item.link)
+      ? "bg-blue-600 text-white hover:bg-blue-700 border-b-4 border-blue-400 font-semibold"
+      : "bg-white text-gray-800 hover:bg-gray-50 border border-gray-200"
+  }
+`}
               >
                 <span className="text-2xl mb-1">{item.icon}</span>
                 {item.name}

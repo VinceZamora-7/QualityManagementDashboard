@@ -1,0 +1,12 @@
+[
+  { "label": "Name-o-matic", "value": 50 },
+  { "label": "Marketo Tags", "value": 25 },
+  { "label": "Marketo Tokens", "value": 15 },
+  { "label": "Marketo Smart Campaign", "value": 10 },
+  { "label": "EMC - Event Details", "value": 5 },
+  { "label": "EMC Customer Journey", "value": 10 },
+  { "label": "EMC - Marketing emails", "value": 5 },
+  { "label": "EMC - HTML coding errors", "value": 10 },
+  { "label": "Others - ON 24 Error", "value": 5 },
+  { "label": "Deliverables", "value": 5 }
+]

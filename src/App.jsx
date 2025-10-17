@@ -6,7 +6,8 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import Dashboard from "./pages/events/events";
+import EventsDashboard from "./pages/events/events";
+import Overview from "./pages/overview/overview";
 import EmailDashboard from "./pages/email/email"; // Your email dashboard component
 import Header from "./components/header";
 import Footer from "./components/footer";
@@ -18,14 +19,17 @@ function App() {
         <Header />
         <main className="flex-grow w-full">
           <Routes>
-            {/* Redirect root "/" to "/dashboard" */}
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            {/* Redirect root "/" to "/overview" */}
+            <Route path="/" element={<Navigate to="/overview" replace />} />
 
-            {/* Dashboard Route */}
-            <Route path="/dashboard/*" element={<Dashboard />} />
+            {/* Overview Route */}
+            <Route path="/overview" element={<Overview />} />
+
+            {/* Main Dashboard Routes */}
+            <Route path="/*" element={<EventsDashboard />} />
 
             {/* Email Service Line Route */}
-            <Route path="/dashboard/email" element={<EmailDashboard />} />
+            <Route path="/email" element={<EmailDashboard />} />
 
             {/* 404 Catch-all */}
             <Route
