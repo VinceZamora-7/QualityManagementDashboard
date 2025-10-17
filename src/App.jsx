@@ -19,13 +19,10 @@ function App() {
         <Header />
         <main className="flex-grow w-full">
           <Routes>
-            {/* Define your valid routes */}
             <Route path="/" element={<Navigate to="/overview" replace />} />
             <Route path="/overview" element={<Overview />} />
             <Route path="/email" element={<EmailDashboard />} />
             <Route path="/*" element={<EventsDashboard />} />
-
-            {/* Catch-all route for 404s: pushes anyone else to "/" */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
