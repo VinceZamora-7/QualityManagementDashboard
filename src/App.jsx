@@ -15,7 +15,7 @@ import Footer from "./components/footer";
 function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50  container mx-auto px-4 sm:px-6 lg:px-8">
         <Header />
         <main className="flex-grow w-full">
           <Routes>
@@ -26,8 +26,8 @@ function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
-        <Footer />
       </div>
+      <Footer />
     </Router>
   );
 }
