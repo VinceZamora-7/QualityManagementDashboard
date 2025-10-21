@@ -5,10 +5,13 @@ import MetricCards from "./MetricCards";
 import EventTypePerformance from "./EventTypePerformance";
 import OperationalMetrics from "./OperationalMetrics";
 import PRGuideButton from "./prguide/PRGuideButton";
+import BarPanel from "./barTable/BarPanel"; // adjust path as needed
 
 const TABS = [
   { id: "pareto", label: "Pareto Analysis", component: <ParetoPanel /> },
   { id: "line", label: "Line Chart", component: <LinePanel /> },
+  { id: "bar", label: "Bar Chart", component: <BarPanel /> }, // new bar chart tab
+
   // add additional tables/components here as needed
 ];
 
