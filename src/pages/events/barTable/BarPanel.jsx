@@ -24,8 +24,8 @@ const BarPanel = () => {
     labels: ["January", "February", "March", "April"],
     datasets: [
       {
-        label: "Sales",
-        data: [65, 59, 80, 81],
+        label: "Peer Rejects",
+        data: [18, 37, 29, 28],
         backgroundColor: "rgba(75,192,192,0.6)",
       },
     ],
@@ -39,7 +39,7 @@ const BarPanel = () => {
       },
       title: {
         display: true,
-        text: "Monthly Sales Data",
+        text: "Monthly Peer Reject Data",
       },
     },
   };
