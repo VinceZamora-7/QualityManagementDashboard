@@ -6,7 +6,7 @@ const SuccessIcon = () => <span className="text-green-400 text-2xl">✅</span>;
 const UserIcon = () => <span className="text-purple-600 text-2xl">👥</span>;
 
 const SummaryCard = ({ icon, label, value, valueClass }) => (
-  <div className="bg-white rounded-lg shadow p-5 flex items-center space-x-4 w-full max-w-sm">
+  <div className="bg-white rounded-lg shadow p-5 flex items-center space-x-4 w-full min-w-96">
     {icon}
     <div>
       <div className="text-sm text-gray-600">{label}</div>
@@ -21,7 +21,7 @@ const EmailSummaryCards = ({
   successfulTasks = 0,
   activeSpecialists = 0,
 }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+  <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-6 mb-6">
     <SummaryCard
       icon={<WarningIcon />}
       label="Overall Error Rate"

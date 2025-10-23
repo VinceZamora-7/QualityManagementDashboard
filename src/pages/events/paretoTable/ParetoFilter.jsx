@@ -7,7 +7,7 @@ const FILTER_OPTIONS = [
 ];
 
 const ParetoFilter = ({ filter, setFilter }) => (
-  <div className="p-4 bg-white rounded-xl shadow-lg border border-gray-100 w-full max-w-xs mx-auto md:mx-0">
+  <div className="p-4 bg-white rounded-xl shadow-lg w-full max-w-xs mx-auto md:mx-0">
     <h3 className="text-lg font-semibold mb-4 text-gray-700 text-center md:text-left">
       Filter Data
     </h3>

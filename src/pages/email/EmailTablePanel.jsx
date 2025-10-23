@@ -9,9 +9,7 @@ const EmailTablePanel = ({ data }) => (
           <th className="px-4 py-2 text-sm font-medium text-gray-700">
             Task ID
           </th>
-          <th className="px-4 py-2 text-sm font-medium text-gray-700">
-            Specialist
-          </th>
+          <th className="px-4 py-2 text-sm font-medium text-gray-700">SDS</th>
           <th className="px-4 py-2 text-sm font-medium text-gray-700">
             Status
           </th>
