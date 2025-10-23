@@ -1,58 +1,62 @@
 import React, { useRef, useState, useEffect } from "react";
 
-const ParetoChart = ({ data, aspectRatio = 2.5 }) => {
-  const chartRef = useRef(null);
-  const [chartWidth, setChartWidth] = useState(500);
-  const [chartHeight, setChartHeight] = useState(200);
-  const [animate, setAnimate] = useState(false);
+const ParetoChart = ({ data, aspectRatio = 2.3 }) => {
+  const containerRef = useRef(null);
+  const [containerWidth, setContainerWidth] = useState(640);
 
-  const margin = 95;
+  // Margin increased for label space
+  const margin = Math.max(120, containerWidth * 0.08);
 
-  // Responsive width/height
   useEffect(() => {
-    const updateSize = () => {
-      if (chartRef.current) {
-        const width = chartRef.current.offsetWidth;
-        setChartWidth(width);
-        setChartHeight(width / aspectRatio);
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
       }
     };
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  }, [aspectRatio]);
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
 
-  // Trigger animation after first render
+  // Compute height based on width and aspect ratio
+  const containerHeight = containerWidth / aspectRatio;
+
+  // Animation for bars and line
+  const [animate, setAnimate] = useState(false);
   useEffect(() => {
-    const animTimeout = setTimeout(() => {
-      setAnimate(true);
-    }, 100); // slight delay before animating
+    setAnimate(false);
+    const animTimeout = setTimeout(() => setAnimate(true), 120);
     return () => clearTimeout(animTimeout);
   }, [data]);
 
+  // Sort data descending by value
   const displayedData = [...data].sort((a, b) => b.value - a.value);
   const total = displayedData.reduce((sum, d) => sum + d.value, 0);
 
+  // Calculate cumulative percents for line
   let cumulative = 0;
   const cumulativePercents = displayedData.map((d) => {
     cumulative += d.value;
     return (cumulative / total) * 100;
   });
 
-  const width = chartWidth;
-  const height = chartHeight;
-  const barWidth = (width - margin * 2) / (displayedData.length || 1);
+  // Dimensions for bars and axes
+  const width = containerWidth;
+  const height = containerHeight;
+  const barWidth = (width - margin * 2) / Math.max(displayedData.length, 1);
   const maxValue = Math.max(...displayedData.map((d) => d.value), 1);
 
+  // Y-axis functions
   const yBar = (val) =>
-    height - margin - (val / maxValue) * (height - margin * 2);
-  const yPct = (pct) => height - margin - (pct / 100) * (height - margin * 2);
+    height - margin - (val / maxValue) * (height - margin * 2.1);
+  const yPct = (pct) =>
+    height - margin - (pct / 100) * (height - margin * 2.05);
 
   return (
     <>
       <style>{`
         .bar-rect {
-          transition: height 0.7s ease, y 0.7s ease;
+          transition: height 0.7s cubic-bezier(.4,0,.2,1), y 0.7s cubic-bezier(.4,0,.2,1);
           transform-origin: bottom;
         }
         .bar-rect.initial {
@@ -60,28 +64,28 @@ const ParetoChart = ({ data, aspectRatio = 2.5 }) => {
           y: ${height - margin} !important;
         }
         .line-polyline {
-          stroke-dasharray: 1000;
-          stroke-dashoffset: 1000;
-          transition: stroke-dashoffset 1.2s ease 0.7s;
+          stroke-dasharray: 1800;
+          stroke-dashoffset: 1800;
+          transition: stroke-dashoffset 1.2s ease 1s;
         }
         .line-polyline.animate {
           stroke-dashoffset: 0;
         }
         .dot-circle {
           opacity: 0;
-          transition: opacity 0.5s ease 1.5s, r 0.5s ease 1.5s;
+          transition: opacity 0.5s ease 1.7s, r 0.5s ease 1.7s;
           r: 0;
         }
         .dot-circle.animate {
           opacity: 1;
           r: 4;
         }
-          
       `}</style>
 
       <div
-        ref={chartRef}
-        className="w-full min-h-[250px] flex justify-center items-center"
+        ref={containerRef}
+        className="w-full min-h-[340px] rounded-xl bg-white shadow-lg mx-auto overflow-x-auto"
+        style={{ minHeight: containerHeight, maxWidth: "100%" }}
       >
         {!displayedData.length ? (
           <div className="p-4 text-gray-500 text-center w-full">
@@ -93,11 +97,14 @@ const ParetoChart = ({ data, aspectRatio = 2.5 }) => {
             height={height}
             viewBox={`0 0 ${width} ${height}`}
             className="font-sans"
+            preserveAspectRatio="xMidYMid meet"
+            style={{ display: "block", margin: "0 auto" }}
           >
+            {/* Title */}
             <text
               x={width / 2}
               y={margin / 2 - 10}
-              fontSize="18"
+              fontSize="20"
               fill="#1f2937"
               textAnchor="middle"
               fontWeight="bold"
@@ -105,6 +112,7 @@ const ParetoChart = ({ data, aspectRatio = 2.5 }) => {
               Root Cause Analysis (Pareto)
             </text>
 
+            {/* X axis line */}
             <line
               x1={margin}
               y1={height - margin}
@@ -114,12 +122,12 @@ const ParetoChart = ({ data, aspectRatio = 2.5 }) => {
               strokeWidth="1"
             />
 
-            {/* Bars with animated height and y */}
+            {/* Bars */}
             {displayedData.map((d, i) => (
               <React.Fragment key={d.label}>
                 <rect
                   className={`bar-rect ${!animate ? "initial" : ""}`}
-                  x={margin + i * barWidth + barWidth * 0.15}
+                  x={margin + i * barWidth + barWidth * 0.12}
                   y={animate ? yBar(d.value) : height - margin}
                   width={barWidth * 0.7}
                   height={animate ? height - margin - yBar(d.value) : 0}
@@ -128,10 +136,10 @@ const ParetoChart = ({ data, aspectRatio = 2.5 }) => {
                 />
                 <text
                   x={margin + i * barWidth + barWidth / 2}
-                  y={animate ? yBar(d.value) - 5 : height - margin - 5}
+                  y={animate ? yBar(d.value) - 10 : height - margin - 10}
                   textAnchor="middle"
                   fill="#3b82f6"
-                  fontSize="10"
+                  fontSize="11"
                   fontWeight="bold"
                 >
                   {d.value}
@@ -139,22 +147,21 @@ const ParetoChart = ({ data, aspectRatio = 2.5 }) => {
               </React.Fragment>
             ))}
 
-            {/* Animated cumulative Pareto line */}
+            {/* Pareto line */}
             <polyline
               className={`line-polyline ${animate ? "animate" : ""}`}
               fill="none"
               stroke="#f97316"
               strokeWidth="3"
               points={cumulativePercents
-                .map((pct, i) => {
-                  const x = margin + i * barWidth + barWidth / 2;
-                  const y = yPct(pct);
-                  return `${x},${y}`;
-                })
+                .map(
+                  (pct, i) =>
+                    `${margin + i * barWidth + barWidth / 2},${yPct(pct)}`
+                )
                 .join(" ")}
             />
 
-            {/* Animated cumulative dots */}
+            {/* Dots */}
             {cumulativePercents.map((pct, i) => (
               <circle
                 className={`dot-circle ${animate ? "animate" : ""}`}
@@ -168,23 +175,25 @@ const ParetoChart = ({ data, aspectRatio = 2.5 }) => {
               />
             ))}
 
+            {/* X labels */}
             {displayedData.map((d, i) => (
               <text
                 key={d.label + "lbl"}
-                x={margin + i * barWidth + barWidth / 50}
-                y={height - margin + 15}
+                x={margin + i * barWidth + barWidth / 2}
+                y={height - margin + 24}
                 textAnchor="end"
                 fill="#555"
                 fontWeight="bold"
-                fontSize="9"
-                transform={`rotate(-40, ${
+                fontSize="10"
+                transform={`rotate(-30, ${
                   margin + i * barWidth + barWidth / 2
-                }, ${height - margin - 50})`}
+                }, ${height - margin + 24})`}
               >
                 {d.label}
               </text>
             ))}
 
+            {/* Y axis grid lines and values */}
             {[0, maxValue / 2, maxValue].map((y) => (
               <React.Fragment key={y}>
                 <line
@@ -207,17 +216,19 @@ const ParetoChart = ({ data, aspectRatio = 2.5 }) => {
               </React.Fragment>
             ))}
 
+            {/* Y axis label */}
             <text
               x={margin / 2}
               y={height / 2}
               transform={`rotate(-90, ${margin / 2}, ${height / 2})`}
-              fontSize="12"
+              fontSize="13"
               fill="#555"
               textAnchor="middle"
             >
               Count / Frequency
             </text>
 
+            {/* Pareto right axis and labels */}
             {[0, 50, 100].map((pct) => (
               <React.Fragment key={pct}>
                 <line
@@ -244,7 +255,7 @@ const ParetoChart = ({ data, aspectRatio = 2.5 }) => {
               x={width - margin / 2}
               y={height / 2}
               transform={`rotate(90, ${width - margin / 2}, ${height / 2})`}
-              fontSize="12"
+              fontSize="13"
               fill="#f97316"
               textAnchor="middle"
             >

@@ -1,45 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
+import EmailSummaryCards from "./EmailSummaryCards";
+import EmailTablePanel from "./EmailTablePanel";
+import BarTablePanel from "./barTable/BarTablePanel";
+import LineTablePanel from "./lineTable/LineTablePanel";
+import ParetoTablePanel from "./paretoTable/ParetoTablePanel";
 
-const EmailDashboard = () => {
-  // Dummy static data (replace with your dynamic API data)
-  const metrics = [
-    { title: "Emails Sent", value: 15000 },
-    { title: "Delivery Rate", value: "98.5%" },
-    { title: "Open Rate", value: "42.7%" },
-    { title: "Click Rate", value: "10.3%" },
-    { title: "Bounce Rate", value: "1.5%" },
-    { title: "Unsubscribe Rate", value: "0.3%" },
+const tabs = [
+  { label: "Pareto Chart", component: ParetoTablePanel },
+  { label: "Line Graph", component: LineTablePanel },
+  { label: "Bar Graph", component: BarTablePanel },
+];
+
+const EmailPage = () => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const summaryData = {
+    overallErrorRate: "3.2%",
+    totalEmailTasks: 1247,
+    successfulTasks: 1207,
+    activeSpecialists: 12,
+  };
+
+  const emailTaskDetails = [
+    // Your email task details here
   ];
 
+  const paretoTableData = [
+    { cause: "Sync error", count: 19 },
+    { cause: "Template miss", count: 11 },
+    { cause: "Invalid token", count: 6 },
+    { cause: "Other", count: 27 },
+  ];
+  const lineTableData = [
+    { month: "January", weeks: [4, 6, 3, 5] },
+    { month: "February", weeks: [9, 10, 8, 10] },
+    { month: "March", weeks: [7, 9, 6, 7] },
+    { month: "April", weeks: [3, 6, 9, 10] },
+  ];
+
+  const barTableData = [
+    { month: "January", tasks: 18 },
+    { month: "February", tasks: 37 },
+    { month: "March", tasks: 29 },
+    { month: "April", tasks: 28 },
+  ];
+
+  const ActiveComponent = tabs[activeTab].component;
+
   return (
-    <div className="p-6 bg-gray-50 min-h-screen font-sans">
-      <h1 className="text-2xl font-bold mb-6">Email Service Line Dashboard</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-6 mb-8">
-        {metrics.map((m) => (
-          <div
-            key={m.title}
-            className="bg-white p-4 rounded-lg shadow flex flex-col items-center"
+    <div className="max-w-7xl mx-auto p-6">
+      <EmailSummaryCards {...summaryData} />
+      <EmailTablePanel data={emailTaskDetails} />
+
+      {/* Tabs */}
+      <div className="flex space-x-2 border-b border-gray-300 my-6 overflow-x-auto scrollbar-thin scrollbar-thumb-indigo-500">
+        {tabs.map((tab, idx) => (
+          <button
+            key={tab.label}
+            className={`px-5 py-3 whitespace-nowrap text-lg font-semibold rounded-t-lg ${
+              activeTab === idx
+                ? "bg-indigo-600 text-white shadow-lg"
+                : "bg-gray-100 hover:bg-gray-200 text-gray-600"
+            }`}
+            onClick={() => setActiveTab(idx)}
+            aria-selected={activeTab === idx}
+            role="tab"
           >
-            <h3 className="text-gray-600 text-sm mb-1">{m.title}</h3>
-            <p className="text-xl font-semibold text-indigo-600">{m.value}</p>
-          </div>
+            {tab.label}
+          </button>
         ))}
       </div>
 
-      {/* Placeholder charts and tables */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow h-64 flex flex-col justify-center items-center">
-          <p className="text-gray-700">[Trend Chart Placeholder]</p>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow h-64 flex flex-col justify-center items-center">
-          <p className="text-gray-700">[Deliverability Overview Placeholder]</p>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow h-64 flex flex-col justify-center items-center">
-          <p className="text-gray-700">[Top Campaigns Table Placeholder]</p>
-        </div>
+      {/* Current Tab Content */}
+      <div
+        role="tabpanel"
+        className="transition-opacity duration-300 ease-in-out"
+      >
+        <ActiveComponent
+          data={
+            activeTab === 0
+              ? paretoTableData
+              : activeTab === 1
+              ? lineTableData
+              : barTableData
+          }
+        />
       </div>
     </div>
   );
 };
 
-export default EmailDashboard;
+export default EmailPage;

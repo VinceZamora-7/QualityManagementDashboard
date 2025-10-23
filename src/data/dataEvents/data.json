@@ -31,8 +31,8 @@
     "date": "10/2025",
     "total": 180,
     "tasks": [
-      { "label": "Name-o-matic", "value": 9, "date": "2025-10-02" },
-      { "label": "Marketo Tags", "value": 15, "date": "2025-10-07" },
+      { "label": "Name-o-matic", "value": 9, "date": "2025-10-23" },
+      { "label": "Marketo Tags", "value": 15, "date": "2025-10-23" },
       { "label": "Marketo Tokens", "value": 7, "date": "2025-10-12" },
       { "label": "Marketo Smart Campaign", "value": 12, "date": "2025-10-14" },
       { "label": "EMC - Event Details", "value": 78, "date": "2025-10-17" },
