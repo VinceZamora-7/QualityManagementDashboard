@@ -4,7 +4,7 @@ import LoginButton from "./login";
 
 const serviceLines = [
   { name: "Overview", icon: "📊", link: "/overview", isPrimary: true },
-  { name: "Events", icon: "🗓️", link: "/events", isPrimary: true },
+  { name: "Events", icon: "🗓️", link: "/events" },
   { name: "Email", icon: "✉️", link: "/email" },
   { name: "BAP", icon: "📄", link: "/bap" },
   { name: "Data", icon: "💾", link: "/data" },
@@ -47,7 +47,7 @@ const Header = () => {
         <div className="flex flex-col leading-snug text-center sm:text-left">
           <Link
             to="/dashboard"
-            className="text-2xl sm:text-3xl font-extrabold text-gray-900 hover:text-indigo-600 transition-colors"
+            className="text-2xl sm:text-3xl font-extrabold text-gray-900"
           >
             Quality Management Dashboard
           </Link>
