@@ -5,6 +5,7 @@ import PieChart from "./pieChart";
 import BarTablePanel from "./barTable/BarTablePanel";
 import LineTablePanel from "./lineTable/LineTablePanel";
 import ParetoTablePanel from "./paretoTable/ParetoTablePanel";
+import PRRejectionPanel from "./PRRejectionPanel";
 
 const tabs = [
   { label: "Pareto Chart", component: ParetoTablePanel },
@@ -80,7 +81,6 @@ const EmailPage = () => {
     { month: "March", tasks: 29 },
     { month: "April", tasks: 28 },
   ];
-
   const ActiveComponent = tabs[activeTab].component;
 
   return (
@@ -90,7 +90,6 @@ const EmailPage = () => {
         <PieChart className="w-full max-w-2xl min-h-96" />
       </div>
       <EmailTablePanel data={emailTaskDetails} />
-
       {/* Tabs */}
       <div className="flex space-x-2 border-b border-gray-300 my-6 overflow-x-auto scrollbar-thin scrollbar-thumb-indigo-500">
         {tabs.map((tab, idx) => (
@@ -110,7 +109,6 @@ const EmailPage = () => {
           </button>
         ))}
       </div>
-
       {/* Tab Content */}
       <div
         role="tabpanel"
@@ -127,6 +125,8 @@ const EmailPage = () => {
           }
         />
       </div>
+      &nbsp;
+      <PRRejectionPanel />
     </div>
   );
 };
