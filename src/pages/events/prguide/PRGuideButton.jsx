@@ -3,7 +3,7 @@ import React from "react";
 // Button component opening external URL in new popup window
 const PeerReviewGuidePopupButton = () => {
   const handleOpen = () => {
-    const url = "https://vincezamora-7.github.io/PRFormEvents/"; // Replace with your actual URL
+    const url = "https://eventsprguide.infinityfree.me/"; // Replace with your actual URL
     const width = 980;
     const height = 900;
     const left = window.screenX + (window.innerWidth - width) / 2;

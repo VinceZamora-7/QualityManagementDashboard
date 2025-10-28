@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import EventsDashboard from "./pages/events/events";
-import Overview from "./pages/overview/overview";
+import Overview from "./pages/overview/Dashboard";
 import EmailDashboard from "./pages/email/email";
 import Header from "./components/header";
 import Footer from "./components/footer";
