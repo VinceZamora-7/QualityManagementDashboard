@@ -49,7 +49,7 @@ const Header = () => {
             to="/dashboard"
             className="text-2xl sm:text-3xl font-extrabold text-gray-900"
           >
-            Quality Management Dashboard
+            Quality Management System
           </Link>
           <span className="text-sm text-gray-600 mt-1">
             Service line specific quality metrics and analytics
