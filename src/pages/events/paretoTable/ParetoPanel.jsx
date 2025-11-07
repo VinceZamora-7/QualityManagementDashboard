@@ -17,7 +17,7 @@ const formatDate = (date) => new Date(date).toDateString();
 
 const ParetoPanel = () => {
   const now = new Date();
-  const [filter, setFilter] = useState("month");
+  const [filter, setFilter] = useState("year");
   const [selectedMonth, setSelectedMonth] = useState(
     `${now.getMonth() + 1}/${now.getFullYear()}`
   );

@@ -9,8 +9,11 @@ import {
 import EventsDashboard from "./pages/events/events";
 import Overview from "./pages/overview/Dashboard";
 import EmailDashboard from "./pages/email/email";
+import DataDashboard from "./pages/data/data";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import BapDashboard from "./pages/bap/bap";
+import SocialTriage from "./pages/social/socialtriage";
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
             <Route path="/" element={<Navigate to="/overview" replace />} />
             <Route path="/overview" element={<Overview />} />
             <Route path="/email" element={<EmailDashboard />} />
+            <Route path="/data" element={<DataDashboard />} />
+            <Route path="/bap" element={<BapDashboard />} />
+            <Route path="/social" element={<SocialTriage />} />
             <Route path="/*" element={<EventsDashboard />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

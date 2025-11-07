@@ -31,7 +31,7 @@ const serviceLines = [
   },
   {
     key: "bap",
-    name: "BAP (Budget And Planning)",
+    name: "BAP",
     status: "Stable",
     errorRate: "1.9%",
     metricLabel: "Budgets Planned",
@@ -64,7 +64,7 @@ const serviceLines = [
   },
   {
     key: "sdp",
-    name: "SDP (Service Delivery Planner)",
+    name: "SDP",
     status: "Efficient",
     errorRate: "3.1%",
     metricLabel: "Plans Today",
@@ -102,7 +102,7 @@ const summaryCards = [
     title: "Total Error Rate",
     value: "2.4%",
     subtext: "8.3% YoY",
-    increase: true,
+    increase: false,
   },
   {
     title: "Issues Requiring Attention",
