@@ -52,4 +52,4 @@ jobs:
           app-name: 'QualityManagementSystem'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_670BE5DCF1294154B0E27FABEA76C0F1 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E4C578308D314A03BBBC3C3894798F05 }}
